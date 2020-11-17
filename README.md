@@ -12,7 +12,7 @@
 > Good luck!
 
 ## Project summary (<300 words)
-Describe the overall aim of your project and what you have achieved.
+This project aims to find ways to use e. coli as cell factory for production of L-serine. For the modelling purposes the iML1515 model will be used to predict knockout/over-expression strategies that would allow the cells to produce and export L-serine.
 
 ## Project overview
 Describe how your project is organized ...
