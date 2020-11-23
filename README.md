@@ -15,6 +15,6 @@
 This project aims to find ways to optimise the use of e. coli as cell factory for production of L-serine. For the modelling purposes the iML1515 model will be used to predict knockout/over-expression strategies that would increase the cells' production and export of L-serine.
 
 ## Project overview
-Our main report is found in ...
-The code and changes to the model can be found in ...
-Requirements for running the code can be found in ...
+Our main report is found in the Report.ipynp file.
+The code and changes to the model can be found in Group Project_final.ipynp.
+Requirements for running the code can be found in requirements.txt.
