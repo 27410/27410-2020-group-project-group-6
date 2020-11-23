@@ -1,0 +1,222 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from IPython.display import display\n",
+    "import re"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import cplex\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import re\n",
+    "from cobra.io import read_sbml_model\n",
+    "from cameo.strain_design import pathway_prediction"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "model = read_sbml_model('iML1515.xml.gz')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <table>\n",
+       "            <tr>\n",
+       "                <td><strong>Name</strong></td>\n",
+       "                <td>iML1515</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Memory address</strong></td>\n",
+       "                <td>0x07fe1a6800e48</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Number of metabolites</strong></td>\n",
+       "                <td>1877</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Number of reactions</strong></td>\n",
+       "                <td>2712</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Number of groups</strong></td>\n",
+       "                <td>0</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Objective expression</strong></td>\n",
+       "                <td>1.0*BIOMASS_Ec_iML1515_core_75p37M - 1.0*BIOMASS_Ec_iML1515_core_75p37M_reverse_35685</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Compartments</strong></td>\n",
+       "                <td>cytosol, extracellular space, periplasm</td>\n",
+       "            </tr>\n",
+       "          </table>"
+      ],
+      "text/plain": [
+       "<Model iML1515 at 0x7fe1a6800e48>"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "model"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <table>\n",
+       "            <tr>\n",
+       "                <td><strong>Reaction identifier</strong></td><td>EX_ser__L_e</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Name</strong></td><td>L-Serine exchange</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Memory address</strong></td>\n",
+       "                <td>0x07fe1a2a68780</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Stoichiometry</strong></td>\n",
+       "                <td>\n",
+       "                    <p style='text-align:right'>ser__L_e --> </p>\n",
+       "                    <p style='text-align:right'>L-Serine --> </p>\n",
+       "                </td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>GPR</strong></td><td></td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Lower bound</strong></td><td>0.0</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Upper bound</strong></td><td>1000.0</td>\n",
+       "            </tr>\n",
+       "        </table>\n",
+       "        "
+      ],
+      "text/plain": [
+       "<Reaction EX_ser__L_e at 0x7fe1a2a68780>"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "model.reactions.EX_ser__L_e"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <table>\n",
+       "            <tr>\n",
+       "                <td><strong>Metabolite identifier</strong></td><td>ser__L_c</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Name</strong></td><td>L-Serine</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Memory address</strong></td>\n",
+       "                <td>0x07fe1a5a42b38</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Formula</strong></td><td>C3H7NO3</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>Compartment</strong></td><td>c</td>\n",
+       "            </tr><tr>\n",
+       "                <td><strong>In 22 reaction(s)</strong></td><td>\n",
+       "                    SERt2rpp, GHMT2r, PSSA140, DHBSH, SERD_L, PSSA120, SERAT, PSP_L, BIOMASS_Ec_iML1515_core_75p37M, PSSA181, SERt4pp, SERASr, BIOMASS_Ec_iML1515_WT_75p37M, PSSA180, PSSA141, LSERDHr, SERtpp, PSSA160, ...</td>\n",
+       "            </tr>\n",
+       "        </table>"
+      ],
+      "text/plain": [
+       "<Metabolite ser__L_c at 0x7fe1a5a42b38>"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "model.metabolites.ser__L_c"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "predictor = pathway_prediction.PathwayPredictor(model)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pathways = predictor.run(product=\"L-Serine\", max_predictions=2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "python3.6",
+   "language": "python",
+   "name": "python3.6"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
