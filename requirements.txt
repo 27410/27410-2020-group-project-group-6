@@ -27,7 +27,7 @@ colorama==0.4.4
 configparser==5.0.1
 cookiecutter==1.7.2
 cplex @ file:///home/jovyan/dynamic-fba/cplex/python/3.6/x86-64_linux
-cryptography==3.2.1
+cryptography==3.3.2
 cycler==0.10.0
 datapackage==1.15.1
 dbus-python==1.2.16
