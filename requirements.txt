@@ -127,7 +127,7 @@ python-libsbml==5.18.3
 python-libsbml-experimental==5.18.1
 python-slugify==4.0.1
 pytz==2020.4
-PyYAML==5.3.1
+PyYAML==5.4
 pyzmq==20.0.0
 reframed==1.2.0
 regex==2020.11.13
