@@ -90,7 +90,7 @@ networkx==2.5
 nltk==3.5
 notebook==6.1.5
 numexpr==2.7.1
-numpy==1.19.4
+numpy==1.22.0
 numpydoc==1.1.0
 openpyxl==3.0.5
 optlang==1.4.2
